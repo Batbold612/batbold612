@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Г.Батболд - Embedded Systems Хөгжүүлэгч</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Mongolian:wght@400;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto Mono', monospace;
+            background: linear-gradient(135deg, #121212 0%, #1e1e1e 100%);
+            color: #e0e0e0;
+            min-height: 100vh;
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .container {
+            max-width: 900px;
+            width: 100%;
+            background: #1e1e1e;
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+            overflow: hidden;
+            border: 1px solid #333;
+        }
+
+        header {
+            background: linear-gradient(135deg, #0d6efd, #0dcaf0);
+            color: white;
+            text-align: center;
+            padding: 60px 30px;
+            position: relative;
+        }
+
+        .profile-image {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            border: 8px solid #1e1e1e;
+            object-fit: cover;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.7);
+            margin-bottom: 20px;
+        }
+
+        .name {
+            font-family: 'Noto Sans Mongolian', sans-serif;
+            font-size: 48px;
+            font-weight: 700;
+            margin: 0 0 10px 0;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .role {
+            font-family: 'Noto Sans Mongolian', sans-serif;
+            font-size: 28px;
+            margin: 0;
+            opacity: 0.95;
+        }
+
+        main {
+            padding: 50px 60px;
+        }
+
+        section {
+            margin-bottom: 50px;
+        }
+
+        h2 {
+            font-family: 'Noto Sans Mongolian', sans-serif;
+            font-size: 26px;
+            color: #0dcaf0;
+            border-bottom: 3px solid #0d6efd;
+            padding-bottom: 10px;
+            margin-bottom: 25px;
+        }
+
+        .contact-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .contact-list li {
+            font-size: 18px;
+            margin: 15px 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #b0bec5;
+        }
+
+        .contact-list li::before {
+            content: "•";
+            color: #0dcaf0;
+            font-size: 24px;
+        }
+
+        .about p {
+            font-size: 18px;
+            line-height: 1.8;
+            color: #cfd8dc;
+            margin: 15px 0;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .skill-item {
+            background: #2d2d2d;
+            padding: 15px 20px;
+            border-radius: 10px;
+            border-left: 5px solid #0dcaf0;
+            font-size: 17px;
+            color: #e0e0e0;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .education, .hobby {
+            background: #2d2d2d;
+            padding: 25px;
+            border-radius: 12px;
+            border: 1px solid #333;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+        }
+
+        .education p, .hobby p {
+            margin: 12px 0;
+            font-size: 18px;
+            color: #cfd8dc;
+        }
+
+        .education strong, .hobby strong {
+            color: #0dcaf0;
+        }
+
+        .hobby img {
+            display: block;
+            margin: 20px auto;
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+            border: 2px solid #0d6efd;
+        }
+
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 30px;
+            font-size: 18px;
+            color: #0dcaf0;
+            text-decoration: none;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+            color: #0d6efd;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            background: #121212;
+            color: #78909c;
+            font-size: 16px;
+            border-top: 1px solid #333;
+        }
+
+        @media (max-width: 768px) {
+            .name { font-size: 38px; }
+            .role { font-size: 24px; }
+            main { padding: 40px 30px; }
+            .profile-image { width: 140px; height: 140px; }
+            .hobby img { width: 100%; height: auto; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <img src="batboldinvation.png" alt="Г.Батболд" class="profile-image">
+            <h1 class="name">Г.БАТБОЛД</h1>
+            <p class="role">Embedded Systems & Electronics </p>
+        </header>
+
+        <main>
+            <section class="contact">
+                <h2>Холбоо барих</h2>
+                <ul class="contact-list">
+                    <li>Email: batbold.boldoo34@gmail.com</li>
+                    <li>Утас: 94502880</li>
+                    <li>Байршил: Улаанбаатар, Монгол Улс</li>
+                </ul>
+            </section>
+
+            <section class="about">
+                <h2>Товч танилцуулга</h2>
+                <p>
+                    Электроник, embedded систем, микроконтроллер програмчлалд дуртай 
+                </p>
+                <p>
+                    PCB дизайн, Embedded C хэлээр систем програмчлах, автоматжуулалтын төсөл дээр ажилласан туршлагатай.
+                </p>
+                <p>
+                    Ирээдүйд ухаалаг систем бүтээх чиглэлээр мэргэшсэн инженер болохыг зорьж байна.
+                </p>
+            </section>
+
+            <section class="skills">
+                <h2>Гол ур чадварууд</h2>
+                <div class="skills-grid">
+                    <div class="skill-item">PCB Design </div>
+                    <div class="skill-item">Microcontroller Programming (AVR, STM32, ESP32)</div>
+                    <div class="skill-item">Embedded C</div>
+                    <div class="skill-item">Embedded Systems & RTOS</div>
+                    <div class="skill-item">Автоматжуулалт </div>
+                    <div class="skill-item">Chip design(VHTL & Vlsi)</div>
+                </div>
+            </section>
+
+            <section class="education">
+                <h2>Боловсрол</h2>
+                <div class="education">
+                    <p><strong>Зэрэг:</strong> Электроникийн Инженер (Бакалавр – суралцаж байгаа)</p>
+                    <p><strong>Сургууль:</strong> Монгол Улсын Их Сургууль (МУИС)</p>
+            </section>
+
+            <!-- ШИНЭ ХЭСЭГ: Сонирхол / Hobby -->
+            <section class="hobby">
+                <h2>Сонирхол</h2>
+                <div>
+                    <p>Чөлөөт цагаараа электроникийн тэмцээн, уралдаанд оролцох сонирхолтой.</p>
+                    
+                    <p><strong>2024 он:</strong> “Инновацын эзэд 2024” уралдаант нэвтрүүлэгт МУИС-аас <strong>QoT</strong> баг болон <em>Indoor Green House</em> бүтээлээр оролцсон.</p>
+                    <img src="batboldinvation.png" alt="Indoor Green House төсөл - Инновацын эзэд 2024">
+                    <img src="batboldinvation1.png" alt="Indoor Green House төсөл - Инновацын эзэд 2024 (2)">
+                    
+                    <p><strong>2025 он:</strong> CanSat тэмцээнд <strong>QoT Space</strong> нэрээр CanSat төрөлд оролцож <strong>1-р байр</strong> эзэлсэн.</p>
+                    <img src="Cansat.jpg" alt="CanSat тэмцээн - 1-р байр 2025">
+                    
+                    <a href="https://batbold612.github.io/batbold612/Lab2" class="back-link">← Буцах (Home page руу)</a>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            Ирээдүйн смарт төхөөрөмж, автоматжуулалтын төсөлд хамтран ажиллахад үргэлж бэлэн!
+        </footer>
+    </div>
+</body>
+</html>
