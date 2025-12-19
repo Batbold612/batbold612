@@ -1,264 +1,245 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="mn">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hangman Game</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Arial, sans-serif;
-            text-align: center;
-            background: linear-gradient(to bottom, #a8e6cf, #dcedc1);
-            margin: 0;
-            padding: 20px;
-            min-height: 100vh;
-        }
-        #game-container {
-            max-width: 900px;
-            margin: 20px auto;
-            background: white;
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-        }
-        h1 {
-            color: #333;
-            margin-bottom: 10px;
-        }
-        #start-btn {
-            padding: 20px 50px;            /* Илүү том болгосон */
-            font-size: 32px;               /* Том үсэг */
-            font-weight: bold;
-            margin: 20px 0 40px 0;
-            cursor: pointer;
-            background: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 15px;
-            box-shadow: 0 8px 15px rgba(0,0,0,0.2);
-            transition: all 0.3s;
-        }
-        #start-btn:hover {
-            background: #45a049;
-            transform: translateY(-3px);
-            box-shadow: 0 12px 20px rgba(0,0,0,0.3);
-        }
-        #start-btn:disabled {
-            background: #888;
-            cursor: not-allowed;
-            transform: none;
-        }
-        #question {
-            font-size: 28px;
-            margin: 30px 0;
-            color: #444;
-            font-weight: bold;
-        }
-        #answer {
-            font-size: 52px;
-            letter-spacing: 18px;
-            margin: 40px 0;
-            color: #222;
-        }
-        #hangman {
-            height: 380px;
-            margin: 30px auto;
-        }
-        #keyboard {
-            margin: 40px;
-            max-width: 800px;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 12px;
-        }
-        button.letter {
-            width: 70px;
-            height: 70px;
-            font-size: 32px;
-            cursor: pointer;
-            border: 3px solid #333;
-            border-radius: 12px;
-            background: #fff;
-            transition: all 0.2s;
-        }
-        button.letter:hover {
-            background: #f0f0f0;
-            transform: scale(1.05);
-        }
-        button.letter.disabled {
-            background: #bbb;
-            color: #666;
-            cursor: not-allowed;
-            transform: none;
-        }
-        #message {
-            font-size: 36px;
-            margin: 40px;
-            min-height: 60px;
-            font-weight: bold;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hangman Монгол</title>
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to bottom, #a8e6cf, #dcedc1);
+    text-align: center;
+    padding: 20px;
+}
+
+#game-container {
+    max-width: 900px;
+    margin: auto;
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+h1 {
+    color: #333;
+}
+
+#start-btn {
+    padding: 18px 45px;
+    font-size: 28px;
+    font-weight: bold;
+    border: none;
+    border-radius: 15px;
+    background: #4CAF50;
+    color: white;
+    cursor: pointer;
+}
+
+#start-btn:disabled {
+    background: #888;
+    cursor: not-allowed;
+}
+
+#question {
+    font-size: 28px;
+    margin: 25px 0;
+}
+
+#answer {
+    font-size: 48px;
+    letter-spacing: 14px;
+    margin: 30px 0;
+}
+
+#hangman {
+    height: 360px;
+    margin: auto;
+}
+
+#keyboard {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 30px;
+}
+
+button.letter {
+    width: 65px;
+    height: 65px;
+    font-size: 28px;
+    border-radius: 12px;
+    border: 3px solid #333;
+    background: white;
+    cursor: pointer;
+}
+
+#message {
+    font-size: 34px;
+    margin-top: 30px;
+    font-weight: bold;
+}
+</style>
 </head>
+
 <body>
-    <div id="game-container">
-        <h1>Hangman Game</h1>
-        <button id="start-btn">Тоглох</button>
-        <div id="question"></div>
-        <div id="answer"></div>
-        <svg id="hangman" viewBox="0 0 300 400"></svg>
-        <div id="keyboard"></div>
-        <div id="message"></div>
-    </div>
 
-    <script>
-        const questions = [
-            'Largest mammal on Earth?',
-            'Fastest land animal?',
-            'Capital of France?',
-            'Tallest mountain in the world?',
-            'Inventor of the telephone?',
-            'Planet closest to the Sun?',
-            'Largest ocean?',
-            'Longest river?',
-            'Most spoken language?',
-            'Biggest desert?'
-        ];
+<div id="game-container">
+    <h1>Hangman</h1>
+    <button id="start-btn">Тоглох</button>
 
-        const answers = [
-            'WHALE',
-            'CHEETAH',
-            'PARIS',
-            'EVEREST',
-            'BELL',
-            'MERCURY',
-            'PACIFIC',
-            'NILE',
-            'MANDARIN',
-            'SAHARA'
-        ];
+    <div id="question"></div>
+    <div id="answer"></div>
 
-        let currentQuestion = '';
-        let currentAnswer = '';
-        let displayed = [];
-        let wrongCount = 0;
-        let guessedLetters = new Set();
+    <svg id="hangman" viewBox="0 0 300 400"></svg>
 
-        const englishLetters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    <div id="keyboard"></div>
+    <div id="message"></div>
+</div>
 
-        const hangmanSvg = document.getElementById('hangman');
-        const questionEl = document.getElementById('question');
-        const answerEl = document.getElementById('answer');
-        const keyboardEl = document.getElementById('keyboard');
-        const messageEl = document.getElementById('message');
-        const startBtn = document.getElementById('start-btn');
+<script>
+// ====== АСУУЛТ & ХАРИУ ======
+const questions = [
+    'Газрын дээрх хамгийн хурдан амьтан?',
+    'Франц улсын нийслэл хот?',
+    'Дэлхийн хамгийн том далай?',
+    'Хамгийн анх утас хэн зохион бүтээсэн бэ?',
+    'Нартай хамгийн ойр гариг аль вэ?'
+];
 
-        function drawHangman() {
-            hangmanSvg.innerHTML = '';
-            line(20, 350, 280, 350);
-            line(60, 350, 60, 50);
-            line(60, 50, 200, 50);
-            line(200, 50, 200, 100);
+const answers = [
+    'ИРВЭС',
+    'ПАРИС',
+    'НОМХОН',
+    'БЕЛЛ',
+    'САНЧИР'
+];
 
-            if (wrongCount >= 1) circle(200, 120, 20);
-            if (wrongCount >= 2) line(200, 140, 200, 220);
-            if (wrongCount >= 3) line(200, 160, 160, 200);
-            if (wrongCount >= 4) line(200, 160, 240, 200);
-            if (wrongCount >= 5) line(200, 220, 160, 260);
-            if (wrongCount >= 6) line(200, 220, 240, 260);
+// Монгол цагаан толгой
+const letters = 'АБВГДЕЁЖЗИЙКЛМНОӨПРСТУҮФХЦЧШЩЪЫЬЭЮЯ';
+
+// ====== ТОГЛООМЫН ХУВЬСАГЧ ======
+let currentAnswer = '';
+let displayed = [];
+let currentIndex = 0;
+let wrongCount = 0;
+
+// ====== DOM ======
+const questionEl = document.getElementById('question');
+const answerEl = document.getElementById('answer');
+const keyboardEl = document.getElementById('keyboard');
+const messageEl = document.getElementById('message');
+const hangmanSvg = document.getElementById('hangman');
+const startBtn = document.getElementById('start-btn');
+
+// ====== ТОГЛООМ ЭХЛҮҮЛЭХ ======
+function startGame() {
+    const i = Math.floor(Math.random() * questions.length);
+
+    currentAnswer = answers[i];
+    displayed = Array(currentAnswer.length).fill('_');
+    currentIndex = 0;
+    wrongCount = 0;
+
+    questionEl.textContent = questions[i];
+    messageEl.textContent = '';
+    updateAnswer();
+    drawHangman();
+    createKeyboard();
+
+    startBtn.disabled = true;
+}
+
+// ====== ХАРИУ ШИНЭЧЛЭХ ======
+function updateAnswer() {
+    answerEl.textContent = displayed.join(' ');
+}
+
+// ====== KEYBOARD ======
+function createKeyboard() {
+    keyboardEl.innerHTML = '';
+    for (let l of letters) {
+        const btn = document.createElement('button');
+        btn.textContent = l;
+        btn.className = 'letter';
+        btn.onclick = () => guessLetter(l);
+        keyboardEl.appendChild(btn);
+    }
+}
+
+// ====== ҮСЭГ ШАЛГАХ (ДАРААЛЛААР) ======
+function guessLetter(letter) {
+
+    if (currentAnswer[currentIndex] === letter) {
+        displayed[currentIndex] = letter;
+        currentIndex++;
+        updateAnswer();
+
+        if (currentIndex === currentAnswer.length) {
+            messageEl.textContent = '🎉 ЯЛЛАА 🎉';
+            messageEl.style.color = 'green';
+            endGame();
         }
+    } else {
+        wrongCount++;
+        drawHangman();
 
-        function line(x1, y1, x2, y2) {
-            const l = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-            l.setAttribute('x1', x1); l.setAttribute('y1', y1);
-            l.setAttribute('x2', x2); l.setAttribute('y2', y2);
-            l.setAttribute('stroke', 'black');
-            l.setAttribute('stroke-width', '7');
-            hangmanSvg.appendChild(l);
+        if (wrongCount >= 6) {
+            messageEl.textContent = `💔 ЯЛАГДЛАА! ҮГ: ${currentAnswer}`;
+            messageEl.style.color = 'red';
+            endGame();
         }
+    }
+}
 
-        function circle(cx, cy, r) {
-            const c = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-            c.setAttribute('cx', cx); c.setAttribute('cy', cy);
-            c.setAttribute('r', r);
-            c.setAttribute('stroke', 'black');
-            c.setAttribute('stroke-width', '7');
-            c.setAttribute('fill', 'none');
-            hangmanSvg.appendChild(c);
-        }
+// ====== ТОГЛООМ ДУУСАХ ======
+function endGame() {
+    startBtn.disabled = false;
+    startBtn.textContent = 'Дахиж тоглох';
+}
 
-        function startGame() {
-            const index = Math.floor(Math.random() * questions.length);
-            currentQuestion = questions[index];
-            currentAnswer = answers[index].toUpperCase();
+// ====== HANGMAN ЗУРАХ ======
+function drawHangman() {
+    hangmanSvg.innerHTML = '';
+    line(20,350,280,350);
+    line(60,350,60,50);
+    line(60,50,200,50);
+    line(200,50,200,100);
 
-            displayed = Array(currentAnswer.length).fill('_');
-            wrongCount = 0;
-            guessedLetters.clear();
+    if (wrongCount > 0) circle(200,120,20);
+    if (wrongCount > 1) line(200,140,200,220);
+    if (wrongCount > 2) line(200,160,160,200);
+    if (wrongCount > 3) line(200,160,240,200);
+    if (wrongCount > 4) line(200,220,160,260);
+    if (wrongCount > 5) line(200,220,240,260);
+}
 
-            questionEl.textContent = currentQuestion;
-            updateAnswer();
-            drawHangman();
-            createKeyboard();
-            messageEl.textContent = '';
-            startBtn.disabled = true;
-            startBtn.textContent = 'Тоглоом эхэлсэн байна...';
-        }
+function line(x1,y1,x2,y2) {
+    const l = document.createElementNS('http://www.w3.org/2000/svg','line');
+    l.setAttribute('x1',x1);
+    l.setAttribute('y1',y1);
+    l.setAttribute('x2',x2);
+    l.setAttribute('y2',y2);
+    l.setAttribute('stroke','black');
+    l.setAttribute('stroke-width','7');
+    hangmanSvg.appendChild(l);
+}
 
-        function updateAnswer() {
-            answerEl.textContent = displayed.join(' ');
-        }
+function circle(cx,cy,r) {
+    const c = document.createElementNS('http://www.w3.org/2000/svg','circle');
+    c.setAttribute('cx',cx);
+    c.setAttribute('cy',cy);
+    c.setAttribute('r',r);
+    c.setAttribute('fill','none');
+    c.setAttribute('stroke','black');
+    c.setAttribute('stroke-width','7');
+    hangmanSvg.appendChild(c);
+}
 
-        function createKeyboard() {
-            keyboardEl.innerHTML = '';
-            for (let letter of englishLetters) {
-                const btn = document.createElement('button');
-                btn.textContent = letter;
-                btn.classList.add('letter');
-                btn.onclick = () => guessLetter(letter, btn);
-                keyboardEl.appendChild(btn);
-            }
-        }
+startBtn.addEventListener('click', startGame);
+</script>
 
-        function guessLetter(letter, btn) {
-            if (guessedLetters.has(letter)) return;
-            guessedLetters.add(letter);
-            btn.classList.add('disabled');
-            btn.disabled = true;
-
-            if (currentAnswer.includes(letter)) {
-                for (let i = 0; i < currentAnswer.length; i++) {
-                    if (currentAnswer[i] === letter) {
-                        displayed[i] = letter;
-                    }
-                }
-                updateAnswer();
-
-                if (!displayed.includes('_')) {
-                    messageEl.textContent = '🎉 Яллаа 🎉';
-                    messageEl.style.color = 'green';
-                    endGame();
-                }
-            } else {
-                wrongCount++;
-                drawHangman();
-
-                if (wrongCount >= 6) {
-                    messageEl.textContent = `💔 Ялагдлаа! Энэ үг бол: ${currentAnswer}`;
-                    messageEl.style.color = 'red';
-                    endGame();
-                }
-            }
-        }
-
-        function endGame() {
-            const buttons = keyboardEl.querySelectorAll('button');
-            buttons.forEach(b => b.disabled = true);
-            startBtn.disabled = false;
-            startBtn.textContent = 'Дахиж тоглох';
-        }
-
-        startBtn.addEventListener('click', startGame);
-    </script>
 </body>
 </html>
